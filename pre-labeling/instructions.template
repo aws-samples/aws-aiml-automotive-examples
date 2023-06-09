@@ -1,0 +1,41 @@
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<crowd-form>
+  <crowd-bounding-box
+    name="boundingBox"
+    src="{{ task.input.taskObject | grant_read_access }}"
+    header="Please draw bounding box around the objects"
+    labels="{{ task.input.labels | to_json | escape }}"
+    initial-value="[
+           {% for box in task.input.manifestLine.prelabel.annotations %}
+             {% capture class_id %}{{ box.class_id }}{% endcapture %}
+             {% assign label = task.input.manifestLine.prelabel-metadata.class-map[class_id] %}
+           {
+           label: {{label | to_json}},
+           left: {{box.left}},
+           top: {{box.top}},
+           width: {{box.width}},
+           height: {{box.height}},
+           },
+          {% endfor %}
+       ]"
+      >
+        <full-instructions header="Bounding box adjustment instructions">
+
+    <ol>
+        <li><strong>Inspect</strong> the image</li>
+        <li><strong>Determine</strong> if the specified label is/are visible in the picture.</li>
+        <li><strong>Outline</strong> each instance of the specified label in the image using the provided “Box” tool.</li>
+    </ol>
+
+
+        </full-instructions>
+        <short-instructions>
+         <ul>
+        <li>Boxes should fit tightly around each object</li>
+        <li>Do not include parts of the object are overlapping or that cannot be seen, even though you think you can interpolate the whole shape.</li>
+        <li>Avoid including shadows.</li>
+        <li>If the target is off screen, draw the box up to the edge of the image.</li>
+        </ul>
+        </short-instructions>
+      </crowd-bounding-box>
+    </crowd-form>   

@@ -1,0 +1,13 @@
+{
+    "document-version": "2018-11-28",
+    "labels": [
+        {"label": "person"},
+        {"label": "bicycle"},
+        {"label": "car"},
+        {"label": "bus"},
+        {"label": "truck"},
+        {"label": "traffic light"},
+        {"label": "fire hydrant"},
+        {"label": "stop sign"}
+    ]
+}
