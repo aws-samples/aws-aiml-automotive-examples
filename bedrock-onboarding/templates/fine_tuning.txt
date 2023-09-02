@@ -1,0 +1,1 @@
+{"input": "Given the context below, answer the specified question. The answer should be extracted directly from the context verbatim. CONTEXT: {{ context }} QUESTION: {{ question }}", "output": "{{ answer}}"}
