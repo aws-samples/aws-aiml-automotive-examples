@@ -1,0 +1,16 @@
+# To use:
+#   $ conda env create -f environment.yml
+#   $ conda activate <name>
+name: bedrock-gen-ai-app
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - numpy
+    - streamlit
+    - requests
+    - boto3
+    - langchain
+    - faiss-cpu
+    - pypdf
+    - transformers

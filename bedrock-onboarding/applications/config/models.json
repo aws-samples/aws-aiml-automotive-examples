@@ -1,0 +1,91 @@
+{
+    "Bedrock-ClaudeV1":{
+        "llm_code" : "anthropic.claude-v1",
+        "credentials_profile" : "default",
+        "streaming":1,
+        "model_details" : "Amazon Bedrock supports foundation models from industry-leading providers such as AI21 Labs, Anthropic, Stability AI, and Amazon. Anthropic is an AI safety and research company offering the Claude family of large language models. These models are purpose built for AI-based assistance use-cases such as obtaining customer service or comprehending documents.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+        "parameters" : [
+        {"name":"bedrock_claude_max_tokens_to_sample", "default":500, "description":"Max Tokens:","min_value":100,"max_value":2048,"step":1,"type":"numeric", "help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_claude_temperature", "default":0.1, "description":"Temperature:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_claude_top_p", "default":0.75, "description":"Top P:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"},
+        {"name":"bedrock_claude_top_k", "default":250, "description":"Top K:","min_value":0,"max_value":250,"step":1,"type":"numeric","help":"Picks Top K number of tokens with probablities from highest to lowest"},
+        {"name":"bedrock_claude_stop_sequences", "default":"\\n\\nHuman:", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
+        ]        
+    },
+    "Bedrock-ClaudeInstantV1":{
+        "llm_code" : "anthropic.claude-instant-v1",
+        "credentials_profile" : "default",
+        "streaming":1,        
+        "model_details" : "Amazon Bedrock supports foundation models from industry-leading providers such as AI21 Labs, Anthropic, Stability AI, and Amazon. Anthropic is an AI safety and research company offering the Claude family of large language models. These models are purpose built for AI-based assistance use-cases such as obtaining customer service or comprehending documents.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+        "parameters" : [
+       {"name":"bedrock_claude_max_tokens_to_sample", "default":500, "description":"Max Tokens:","min_value":100,"max_value":2048,"step":1,"type":"numeric", "help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_claude_temperature", "default":0.1, "description":"Temperature:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_claude_top_p", "default":0.75, "description":"Top P:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"},
+        {"name":"bedrock_claude_top_k", "default":250, "description":"Top K:","min_value":0,"max_value":250,"step":1,"type":"numeric","help":"Picks Top K number of tokens with probablities from highest to lowest"},
+        {"name":"bedrock_claude_stop_sequences", "default":"\\n\\nHuman:", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
+        ]
+    },
+    "Bedrock-ClaudeV2":{
+        "llm_code" : "anthropic.claude-v2",
+        "credentials_profile" : "default",
+        "streaming":1,        
+        "model_details" : "Amazon Bedrock supports foundation models from industry-leading providers such as AI21 Labs, Anthropic, Stability AI, and Amazon. Anthropic is an AI safety and research company offering the Claude family of large language models. These models are purpose built for AI-based assistance use-cases such as obtaining customer service or comprehending documents.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+        "parameters" : [
+       {"name":"bedrock_claude_max_tokens_to_sample", "default":500, "description":"Max Tokens:","min_value":100,"max_value":2048,"step":1,"type":"numeric", "help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_claude_temperature", "default":0.1, "description":"Temperature:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_claude_top_p", "default":0.75, "description":"Top P:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"},
+        {"name":"bedrock_claude_top_k", "default":250, "description":"Top K:","min_value":0,"max_value":250,"step":1,"type":"numeric","help":"Picks Top K number of tokens with probablities from highest to lowest"},
+        {"name":"bedrock_claude_stop_sequences", "default":"\\n\\nHuman:", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
+        ]        
+    },
+
+    "Bedrock-TitanLarge":{
+        "llm_code" : "amazon.titan-tg1-large",
+        "credentials_profile" : "default",
+        "streaming":1,        
+        "model_details" : "Amazon Bedrock supports foundation models from industry-leading providers such as AI21 Labs, Anthropic, Stability AI, and Amazon. The Amazon Titan models leverage Amazon’s 20+ years of ML experience.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+    "parameters" : [
+        {"name":"bedrock_titan_max_token", "default":512, "description":"Max Tokens:","min_value":50,"max_value":4096,"step":1,"type":"numeric", "help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_titan_temperature", "default":0.1, "description":"Temperature:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_titan_top_p", "default":0.75, "description":"Top P:","min_value":0.1,"max_value":1.0,"step":0.1,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"}
+        ]
+    },
+        "Bedrock-AI21-Jurassic-2-Mid":{
+        "llm_code" : "ai21.j2-mid",
+        "credentials_profile" : "default",
+        "streaming":0,            
+        "model_details" : "Amazon Bedrock supports foundation models from industry-leading providers such as AI21 Labs, Anthropic, Stability AI, and Amazon. AI21 offers Jurassic-2, state-of-the-art LLMs that enable developers and businesses to build their own generative AI-driven applications and services.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+        "parameters" : [
+        {"name":"bedrock_ai21_maxTokens", "default":500, "description":"Max Tokens:","min_value":100,"max_value":8191,"step":1,"type":"numeric","help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_ai21_temperature", "default":0.1, "description":"Temperature:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_ai21_topP", "default":0.75, "description":"Top P:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"},
+        {"name":"bedrock_ai21_countPenalty", "default":0.0, "description":"Count Penalty:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared in the prompt or in the completion, proportional to the number of appearances"},
+        {"name":"bedrock_ai21_frequencyPenalty", "default":0.0, "description":"Frequency Penalty:","min_value":0.0,"max_value":500.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared in the prompt or in the completion, proportional to the frequency of their appearances in the text -normalized to text length"},
+        {"name":"bedrock_ai21_presencePenalty", "default":0.0, "description":"Presence Penalty:","min_value":0.0,"max_value":5.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared at least once in the prompt or in the completion"},                    
+        {"name":"bedrock_ai21_stopSequences", "default":"", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
+        ]        
+    },
+        "Bedrock-AI21-Jurassic-2-Ultra":{
+        "llm_code" : "ai21.j2-ultra",
+        "credentials_profile" : "default",
+        "streaming":0,            
+        "model_details" : "Amazon Bedrock supports foundation models from industry-leading providers such as AI21 Labs, Anthropic, Stability AI, and Amazon. AI21 offers Jurassic-2, state-of-the-art LLMs that enable developers and businesses to build their own generative AI-driven applications and services.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+        "parameters" : [
+        {"name":"bedrock_ai21_maxTokens", "default":500, "description":"Max Tokens:","min_value":100,"max_value":8191,"step":1,"type":"numeric","help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_ai21_temperature", "default":0.1, "description":"Temperature:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_ai21_topP", "default":0.75, "description":"Top P:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"},
+        {"name":"bedrock_ai21_countPenalty", "default":0.0, "description":"Count Penalty:","min_value":0.0,"max_value":1.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared in the prompt or in the completion, proportional to the number of appearances"},
+        {"name":"bedrock_ai21_frequencyPenalty", "default":0.0, "description":"Frequency Penalty:","min_value":0.0,"max_value":500.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared in the prompt or in the completion, proportional to the frequency of their appearances in the text -normalized to text length"},
+        {"name":"bedrock_ai21_presencePenalty", "default":0.0, "description":"Presence Penalty:","min_value":0.0,"max_value":5.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared at least once in the prompt or in the completion"},                    
+        {"name":"bedrock_ai21_stopSequences", "default":"", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
+        ]        
+    }    
+    
+    
+}

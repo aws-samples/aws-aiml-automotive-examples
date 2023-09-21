@@ -1,0 +1,8 @@
+{
+    "index_type": "kendra",
+    "doc_bucket": "auto-gen-ai-ge-420618410968",
+    "faiss_index_path": "faiss_indices",
+    "kendra_index_id": "0233abee-9a12-4412-a2d6-a2607a8ba26a",
+    "kendra_data_source_id": "9df1d734-6170-4878-8b8c-2adfb48b8b10",
+    "region": "us-east-1"
+}
