@@ -4,10 +4,12 @@ Streamlit is an open-source Python framework for building quick user interface t
 You can find a more in-depth introduction to Streamlit from [Get started](https://docs.streamlit.io/library/get-started) page.
 
 
-You can run the streamlit application either from SageMaker Studio or locally.  
+<img src="images/chat-with-doc.gif" alt="Streamlit application" style="width: 750px;"/>
+
+You can run the streamlit application either from locally or from SageMaker Studio 
 
 
-## Instructions to run locally
+# A) Instructions to run locally
 Follow the below instructions to run the application locally. 
 
 ### Install and Setup
@@ -28,8 +30,20 @@ pip install /<extract_dir>/boto3-1.28.21-py3-none-any.whl
 pip install /<extract_dir>/botocore-1.31.21-py3-none-any.whl
 ```
 
+### Run application 
+After you have installed, run the following command to launch demo application. This runs the application to run on port 8081, restrict maximum file size for upload to 10MB. Both settings can be changed.
 
-## Instructions to run on SageMaker Studio
+```bash
+streamlit run Amazon_Bedrock.py --server.port 8081 --server.maxUploadSize 10
+```
+
+### Launch application UI
+You can navigate to the application UI using the folowing URL format. Replace the values in angle brackets. 
+
+http://localhost:&lt;Port&gt;/
+
+
+# B) Instructions to run on SageMaker Studio
 Setup Streamlit environemnt. Below assumes you have extracted code to /home/sagemaker-user/bedrock_onboarding directory
 
 ```bash
@@ -47,14 +61,22 @@ pip install /home/sagemaker-user/bedrock_onboarding/bedrock_docs/SDK-1-28/boto3-
 pip install /home/sagemaker-user/bedrock_onboarding/bedrock_docs/SDK-1-28/botocore-1.31.21-py3-none-any.whl
 ```
 
-## Run application 
-Run the following command to launch demo application. This runs the application to run on port 8081, restrict maximum file size for upload to 10MB. Both settings can be changed.
+### Run application 
+After you have installed, run the following command to launch demo application. This runs the application to run on port 8081, restrict maximum file size for upload to 10MB. Both settings can be changed.
 
 ```bash
 streamlit run Amazon_Bedrock.py --server.port 8081 --server.maxUploadSize 10
 ```
 
-## Stop & Clean-up
+### Launch application UI
+If you are running this app from SageMaker studio, SageMaker automatically will use a proxy to run the application. You can navigate to the application UI using the folowing URL format. Replace the values in angle brackets. Alternatively, you can execute the code cells in the notebook [app_launcher.ipynb](app_launcher.ipynb) to create the URL for you.
+
+https://&lt;DomainName&gt;.studio.&lt;StudioRegion&gt;.sagemaker.aws/jupyter/default/proxy/&lt;Port&gt;/
+
+
+
+
+# Stop & Clean-up
 To stop the application, go to terminal and kill the application Ctrl +C
 Deactivate conda environment created to exit out
 
