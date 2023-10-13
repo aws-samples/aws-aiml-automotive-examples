@@ -56,7 +56,7 @@ def get_client(region):
         "mode":"standard"
     })
 
-    bedrock = session.client("bedrock", region_name=region, config=config)
+    bedrock = session.client("bedrock-runtime", region_name=region, config=config)
     return bedrock
         
     
