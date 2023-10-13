@@ -160,7 +160,7 @@ llm_info= get_llm_info(llm_providers,selected_provider)
 write_top_bar(llm_info)
 
 with st.expander('Kendra'):
-    st.text_input("Kendra Index", key="kendra_index_id", value="0233abee-9a12-4412-a2d6-a2607a8ba26a")
+    st.text_input("Kendra Index", key="kendra_index_id", value="")
     st.text_input("Filter Key", key="kendra_filter_key", value="provider")
     st.text_input("Filter Value", key="kendra_filter_value", value="")
 

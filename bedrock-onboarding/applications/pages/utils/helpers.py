@@ -21,6 +21,9 @@ with open('config/settings.json') as sf:
     settings = json.load(sf)
     region = settings["region"]
 
+def get_region():
+    return region
+
 @st.cache_resource(ttl="1h")
 def _split_docs(pdf_files,chunk_size=750, chunk_overlap=150):
     docs = []
