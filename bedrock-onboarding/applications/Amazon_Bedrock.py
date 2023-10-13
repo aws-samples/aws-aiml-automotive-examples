@@ -31,9 +31,8 @@ st.markdown('---')
 st.markdown('''
 ### Resources:
 
-* [Bedrock User Guide](https://d2eo22ngex1n9g.cloudfront.net/Documentation/BedrockUserGuide.pdf)
+* [Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html)
 * [Bedrock API Documentation](https://docs.aws.amazon.com/bedrock/latest/APIReference/welcome.html)
-* [Bedrock Python SDK](https://d2eo22ngex1n9g.cloudfront.net/Documentation/SDK/bedrock-python-sdk.zip)
 
 ''')
 

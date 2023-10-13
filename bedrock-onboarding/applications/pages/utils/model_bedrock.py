@@ -13,7 +13,7 @@ def get_client(region):
         "mode":"standard"
     })
 
-    bedrock = session.client("bedrock", region_name=region, config=config)
+    bedrock = session.client("bedrock-runtime", region_name=region, config=config)
     return bedrock
 
 def get_llm(region,credentials_profile,model,model_kwargs):

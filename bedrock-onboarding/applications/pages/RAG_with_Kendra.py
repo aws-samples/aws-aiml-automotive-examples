@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
 
 from helpers import *
 from kendra_helper import *
-RAG_ARCHITECTURE = "images/rag-architecture-options.png"
+RAG_ARCHITECTURE = "images/rag-architecture-kendra.png"
 MAX_HISTORY_LENGTH = 5
 
 with open('config/models.json') as llm_config:
@@ -161,7 +161,7 @@ write_top_bar(llm_info)
 
 with st.expander('Kendra'):
     st.text_input("Kendra Index", key="kendra_index_id", value="")
-    st.text_input("Filter Key", key="kendra_filter_key", value="provider")
+    st.text_input("Filter Key", key="kendra_filter_key", value="")
     st.text_input("Filter Value", key="kendra_filter_value", value="")
 
 kendra_index_id = st.session_state["kendra_index_id"]

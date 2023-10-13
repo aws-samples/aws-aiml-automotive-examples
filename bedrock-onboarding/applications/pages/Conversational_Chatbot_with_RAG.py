@@ -21,6 +21,7 @@ def build_chain(llm_info,retriever):
     st.session_state["retriever"] = retriever
     st.session_state['llm_code'] = llm_code
     
+    llm_info["prompt_template"] = prompt_template
     if retriever is not None:
         st.session_state['llm_chain'] = get_chain(llm_info,retriever)
     
@@ -72,8 +73,6 @@ def write_top_bar(llm_info):
 def handle_input(input):
 
     chat_history = st.session_state["chat_history"]
-    if len(chat_history) == MAX_HISTORY_LENGTH:
-        chat_history = chat_history[:-1]
 
     llm_chain = st.session_state['llm_chain']
 
@@ -202,6 +201,11 @@ st.markdown('---')
 chat = st.container()
 
 with st.container():
+    if len(st.session_state.chat_history) >= MAX_HISTORY_LENGTH:
+        st.session_state.chat_history =  st.session_state.chat_history[-MAX_HISTORY_LENGTH:]
+        st.session_state.questions = st.session_state.questions[-MAX_HISTORY_LENGTH:]
+        st.session_state.answers = st.session_state.answers[-MAX_HISTORY_LENGTH:]
+    
     for (q, a) in zip(st.session_state.questions, st.session_state.answers):
         write_questions(chat,q)
         write_response(chat,a)

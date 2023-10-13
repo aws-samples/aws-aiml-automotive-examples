@@ -98,7 +98,9 @@ def invoke_titan(modelId,dialog_input,region,model_kwargs,callback_handler=None)
 
 def invoke_claude(modelId,dialog_input,region,model_kwargs,callback_handler=None):
     contentType= "application/json"
-    accept= "*/*"    
+    accept= "*/*"
+    
+    dialog_input = 'Human:\n' + dialog_input + '\nAssistant:\n'
 
     bedrock = get_client(region)
     payload_json = {
