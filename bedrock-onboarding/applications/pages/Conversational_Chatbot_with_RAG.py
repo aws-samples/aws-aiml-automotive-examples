@@ -17,11 +17,14 @@ with open('config/models.json') as llm_config:
 
 def build_chain(llm_info,retriever):
     llm_code = llm_info['llm_code']
-    prompt_template = st.session_state["prompt_template"]
+    if "prompt_template" in st.session_state:
+        prompt_template = st.session_state["prompt_template"]
+        llm_info["prompt_template"] = prompt_template
+
     st.session_state["retriever"] = retriever
     st.session_state['llm_code'] = llm_code
     
-    llm_info["prompt_template"] = prompt_template
+
     if retriever is not None:
         st.session_state['llm_chain'] = get_chain(llm_info,retriever)
     

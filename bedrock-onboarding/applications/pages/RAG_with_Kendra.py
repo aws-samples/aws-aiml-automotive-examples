@@ -17,10 +17,13 @@ with open('config/models.json') as llm_config:
 
 def build_chain(llm_info,retriever):
     llm_code = llm_info['llm_code']
-    prompt_template = st.session_state["prompt_template"]
+    if "prompt_template" in st.session_state:
+        prompt_template = st.session_state["prompt_template"]
+        llm_info["prompt_template"] = prompt_template
+
     st.session_state["retriever"] = retriever
     st.session_state['llm_code'] = llm_code
-    llm_info["prompt_template"] = prompt_template
+
     if retriever is not None:
         st.session_state['llm_chain'] = get_chain(llm_info,retriever)
     
@@ -160,8 +163,8 @@ llm_info= get_llm_info(llm_providers,selected_provider)
 write_top_bar(llm_info)
 
 with st.expander('Kendra'):
-    st.text_input("Kendra Index", key="kendra_index_id", value="")
-    st.text_input("Filter Key", key="kendra_filter_key", value="")
+    st.text_input("Kendra Index", key="kendra_index_id", value="0233abee-9a12-4412-a2d6-a2607a8ba26a")
+    st.text_input("Filter Key", key="kendra_filter_key", value="provider")
     st.text_input("Filter Value", key="kendra_filter_value", value="")
 
 kendra_index_id = st.session_state["kendra_index_id"]
