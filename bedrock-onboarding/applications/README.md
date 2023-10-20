@@ -23,6 +23,14 @@ This application demonstrates generating document summary using Langchain. This 
 #### 5. RAG with Kendra: 
 This application demonstrates Retrieval Augmented Generation (RAG) architecture. RAG can be used to retrieve data from outside a foundation model and augment your prompts by adding the relevant retrieved data in context. This external data used to augment prompts can come from multiple data sources, such as a document repositories, databases, or APIs. Typically documents are conveted and the application queries the data to perform relevancy search. In this case, Kendra is used as a knowledge store for the user queries. RAG model sources relevant data from the knowledge library. The original user prompt is then appended with relevant context from similar documents within the knowledge library. This augmented prompt is then sent to the foundation model. You can use Kendra to ingest the documents asynchronously. Expand Solution architecture below to learn more.
 
+## Service access checklist
+Before you proceed further, ensure following steps are carried out: 
+
+* Ensure that you have access to Amazon Bedrock service in your account and the region you are launching these notebooks
+* Review Amazon Bedrock service user guide. You can access the user guide [here.](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html)
+* Subscribe to the models you plan to utilize. This requires subscription to the models from AWS Marketplace for third-party models. If your account is setup with Private Marketplace, you need to subscribe to the model Ids and they need to be part of the Private Marketplace products. Refer to Bedrock User guide for details.
+* Enable model access: The account does not have access to models by default. Admin users with IAM access permissions can add access to specific models using the model access page. After the admin adds access to models, those models are available for all users of the account. You will be able to see a message "Access Granted" under Model access page.
+* Setup IAM policies to get access to Amazon Bedrock service. You can refer to Bedrock User Guide for a list of actions. To run this applications, add permissions to access Amazon Bedrock, S3 and Amazon Kendra services to the IAM role that is used to run the application.
 
 <br>
 You can run the streamlit application either from locally or from SageMaker Studio
