@@ -159,20 +159,13 @@ def summarize_doc(llm_info,split_docs,map_prompt,reduce_prompt):
                                     chain_type='map_reduce',
                                     map_prompt=map_template,
                                     combine_prompt=combine_template,
-                                    return_intermediate_steps=True,
+                                    return_intermediate_steps=False,
                                     input_key="input_documents",
                                     output_key="output_text",
                                     )
         
-        output = summary_chain({"input_documents": split_docs}, return_only_outputs=True)
-        return output['output_text']
+        output = summary_chain.run(split_docs)
+        return output
         
-#         summary_chain = load_summarize_chain(llm=llm,
-#                             chain_type='map_reduce',
-#                             input_key="input_documents",
-#                             output_key="output_text",
-#                             )
-#         output = summary_chain.run(split_docs)
-#         return output
- 
+
     

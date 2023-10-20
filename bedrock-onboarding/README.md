@@ -17,6 +17,16 @@ With the notebooks part of this repo, you can get started with service request, 
 This repo also has Streamlit based applications to perform document search, analysis, text summarization and generate Q&A.
 
 
+## Service access checklist
+Before you proceed further, ensure following steps are carried out: 
+
+* Ensure that you have access to Amazon Bedrock service in your account and the region you are launching these notebooks
+* Review Amazon Bedrock service user guide. You can access the user guide [here.](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html)
+* Subscribe to the models you plan to utilize. This requires subscription to the models from AWS Marketplace for third-party models. If your account is setup with Private Marketplace, you need to subscribe to the model Ids and they need to be part of the Private Marketplace products. Refer to Bedrock User guide for details.
+* Enable model access: The account does not have access to models by default. Admin users with IAM access permissions can add access to specific models using the model access page. After the admin adds access to models, those models are available for all users of the account. You will be able to see a message "Access Granted" under Model access page.
+* Setup IAM policies to get access to Amazon Bedrock service. You can refer to Bedrock User Guide for a list of actions.
+
+
 ### Resources:
 
 * [Bedrock User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-service.html)

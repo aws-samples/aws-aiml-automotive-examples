@@ -46,7 +46,21 @@ def get_llm_args(llm_code):
             "frequencyPenalty":{"scale":st.session_state.bedrock_ai21_frequencyPenalty},            
             
         }
+    elif (llm_code == "cohere.command-text-v14"):
+        if st.session_state.bedrock_cohere_stopSequences == "":
+            stop_sequence = []
+        else:
+            stop_sequence = st.session_state.bedrock_cohere_stopSequences.split(",")
         
+        model_kwargs = {
+            "max_tokens":st.session_state.bedrock_cohere_maxTokens,
+            "temperature":st.session_state.bedrock_cohere_temperature,
+            "p":st.session_state.bedrock_cohere_topP,
+            "k":st.session_state.bedrock_cohere_topK,
+            "stop_sequences":stop_sequence,
+            "return_likelihoods":"ALL"
+         }
+       
     return model_kwargs
 
 def get_client(region):
@@ -172,6 +186,42 @@ def invoke_ai21(modelId,dialog_input,region,model_kwargs,callback_handler=None):
     )
     return json.load(response['body'])['completions'][0]['data']['text']    
     
+def invoke_cohere(modelId,dialog_input,region,model_kwargs,callback_handler=None):
+    contentType= "application/json"
+    accept= "*/*"
+    
+    bedrock = get_client(region)
+    payload_json = {
+                    "prompt":dialog_input,
+                    **model_kwargs
+                   }
+    
+    
+    body = json.dumps(payload_json)
+    
+    if callback_handler:
+        response = bedrock.invoke_model_with_response_stream(
+              modelId= modelId,
+              contentType= contentType,
+              accept= accept,
+              body= body
+            )
+        stream = response.get('body')
+        if stream:
+            for event in stream:
+                chunk = event.get('chunk')
+                if chunk:
+                    chunk_json = json.loads(chunk.get('bytes').decode())
+                    callback_handler(chunk_json["generations"]) 
+            callback_handler("",True)
+    else:
+        response = bedrock.invoke_model(
+          modelId= modelId,
+          contentType= contentType,
+          accept= accept,
+          body= body
+        )
+        return json.load(response['body'])["generations"][0]["text"] 
     
 def get_invoker(model):
     if model == 'amazon.titan-tg1-large':
@@ -180,5 +230,7 @@ def get_invoker(model):
         return invoke_claude
     elif (model == "ai21.j2-mid") or (model == "ai21.j2-ultra"): #(model == 'ai21.j2-grande-instruct') or (model == 'ai21.j2-jumbo-instruct'):
         return invoke_ai21
+    elif (model == "cohere.command-text-v14"):
+        return invoke_cohere
     else:
         raise Exception("Unsupported LLM: ", model)   

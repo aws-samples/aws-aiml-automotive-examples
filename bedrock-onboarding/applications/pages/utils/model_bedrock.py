@@ -16,10 +16,10 @@ def get_client(region):
     bedrock = session.client("bedrock-runtime", region_name=region, config=config)
     return bedrock
 
-def get_llm(region,credentials_profile,model,model_kwargs):
+def get_llm(region,credentials_profile,model,model_kwargs,streaming=True):
     #client = boto3.client("bedrock", region)
     client = get_client(region)
-    llm = Bedrock(credentials_profile_name=None,model_id=model,region_name=region,client=client,model_kwargs=model_kwargs)
+    llm = Bedrock(credentials_profile_name=None,model_id=model,region_name=region,client=client,model_kwargs=model_kwargs,streaming=streaming)
     return llm
 
   

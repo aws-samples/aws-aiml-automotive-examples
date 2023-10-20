@@ -85,7 +85,22 @@
         {"name":"bedrock_ai21_presencePenalty", "default":0.0, "description":"Presence Penalty:","min_value":0.0,"max_value":5.0,"step":0.1,"type":"numeric","help":"Reduce the probability of generating new tokens that appeared at least once in the prompt or in the completion"},                    
         {"name":"bedrock_ai21_stopSequences", "default":"", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
         ]        
-    }    
+    },
     
+    
+        "Bedrock-Cohere-Command-V-14.6":{
+        "llm_code" : "cohere.command-text-v14",
+        "credentials_profile" : "default",
+        "streaming":0,            
+        "model_details" : "Command is a text generation model for business use cases. Command is trained on data that supports reliable business applications, like text generation, summarization, copywriting, dialogue, extraction, and question answering.",
+        "prompt_template" : "The following is a friendly conversation between a human and an AI. \n The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know.\n {context} \n Question: Based on the above documents, provide a detailed answer for, {question}. Provide a generic response if not present in the document. Restrict your response to the question.\n Answer:",
+        "parameters" : [
+        {"name":"bedrock_cohere_maxTokens", "default":500, "description":"Max Tokens:","min_value":0,"max_value":4096,"step":1,"type":"numeric","help":"Maximum number of tokens in a sequence"},
+        {"name":"bedrock_cohere_temperature", "default":0.75, "description":"Temperature:","min_value":0.0,"max_value":5.0,"step":0.1,"type":"numeric","help":"This governs randomness and creativity. Lower values result in more deterministic response"},
+        {"name":"bedrock_cohere_topP", "default":0.01, "description":"Top P:","min_value":0.01,"max_value":0.99,"step":0.01,"type":"numeric","help":"Governs cumulative probability of tokens collectively. Higher value will be more creative"},
+        {"name":"bedrock_cohere_topK", "default":0, "description":"Top P:","min_value":0,"max_value":500,"step":1,"type":"numeric","help":"Picks Top K number of tokens with probablities from highest to lowest"},
+        {"name":"bedrock_cohere_stopSequences", "default":"", "description":"Stop sequence:","type":"text","help":"Sequence to be used by LLM to indicate when to stop generating. Separate by comma"}
+        ]        
+    }    
     
 }
