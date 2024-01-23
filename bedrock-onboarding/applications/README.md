@@ -77,9 +77,13 @@ streamlit run Amazon_Bedrock.py --server.port 8081 --server.maxUploadSize 10
 ### Launch application UI
 If you are running this app from SageMaker studio, SageMaker automatically will use a proxy to run the application. You can navigate to the application UI using the folowing URL format. Replace the values in angle brackets. Alternatively, you can execute the code cells in the notebook [app_launcher.ipynb](app_launcher.ipynb) to create the URL for you.
 
+For SageMaker Studio classic:
+
 https://&lt;DomainName&gt;.studio.&lt;StudioRegion&gt;.sagemaker.aws/jupyter/default/proxy/&lt;Port&gt;/
 
+For SageMaker Studio:
 
+https://&lt;SpaceID&gt;.studio.&lt;StudioRegion&gt;.sagemaker.aws/jupyterlab/default/proxy/&lt;Port&gt;/
 
 
 # Stop & Clean-up
