@@ -1,5 +1,5 @@
 from langchain.prompts import PromptTemplate
-from langchain.llms import Bedrock
+from langchain_community.llms import Bedrock
 import os
 import streamlit as st
 import boto3

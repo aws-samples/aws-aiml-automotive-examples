@@ -5,8 +5,24 @@ import uuid
 import sys
 import os
 
+st.set_page_config(page_title="Amazon Bedrock Conversational LLM", page_icon=":robot:", layout="wide")
+st.header("Amazon Bedrock Demo- Chat with an LLM")
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
+
 from helpers import *
+import auth.cognito_authenticator as cognito
+cognito.do_auth()
+
+if st.session_state["enforce_login"] == 1:
+    if st.session_state["auth_validated"]:
+        cognito.show_button(False)
+    else:
+        cognito.show_button(True)
+        st.write("Please login!")
+        st.stop()
+
 
 MAX_FILES = 2
 
@@ -94,8 +110,6 @@ def handle_input(input,do_streaming=True):
             output_container.markdown(result)
         
 
-st.set_page_config(page_title="Amazon Bedrock Conversational LLM", page_icon=":robot:", layout="wide")
-st.header("Amazon Bedrock Demo- Chat with an LLM")
 
 st.markdown('''
 This application demonstrates how to build conversational systems with an LLM. You can select one or more PDF documents and the contents from the documents will be "stuffed" into the prompt. Text is extracted from the uploaded documents and cleaned-up. You can select what pages need to be added to the prompt. LLM gets this information as a context and you can query with your supplied context. 

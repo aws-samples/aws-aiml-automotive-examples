@@ -8,8 +8,23 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from streamlit.runtime.scriptrunner import add_script_run_ctx
 
+st.set_page_config(page_title="Amazon Bedrock - Document Analysis", page_icon=":robot:", layout="wide")
+st.header("Amazon Bedrock Demo- Document Analysis")
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
 from helpers import *
+import auth.cognito_authenticator as cognito
+cognito.do_auth()
+
+if st.session_state["enforce_login"] == 1:
+    if st.session_state["auth_validated"]:
+        cognito.show_button(False)
+    else:
+        cognito.show_button(True)
+        st.write("Please login!")
+        st.stop()
+
 
 MAX_FILES = 2
 
@@ -152,8 +167,6 @@ def handle_summary(action_template,reduce_template,task_type,extracted_text,page
                 st.text_area("Page group response", value=summaries,height=200, label_visibility='hidden')
             
 
-st.set_page_config(page_title="Amazon Bedrock - Document Analysis", page_icon=":robot:", layout="wide")
-st.header("Amazon Bedrock Demo- Document Analysis")
 st.markdown('''
 This application demonstrates document analysis tasks. You can select one or more documents to perform the analysis. You can use this for multiple purposes such as generating a quick summary of the or automatically generating question and answers. You can customize the prompts. This application uses Map-Reduce approach for the document analysis. This involves splitting the document into smaller batches and running the analysis task for each of the batch and collating the results from the individual groups.  
 Following tasks are covered

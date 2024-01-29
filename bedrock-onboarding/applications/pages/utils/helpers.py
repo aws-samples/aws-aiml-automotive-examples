@@ -6,12 +6,12 @@ import json
 import tempfile as tmp
 import re
 
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
-from langchain.embeddings import BedrockEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.embeddings import BedrockEmbeddings
+from langchain_community.vectorstores import FAISS
 from langchain.chains.summarize import load_summarize_chain
 
 import model_bedrock as bedrock

@@ -5,8 +5,23 @@ import uuid
 import sys
 import os
 
+
 st.set_page_config(page_title="Amazon Bedrock DemoM", page_icon=":robot:", layout="wide")
 st.header("Amazon Bedrock Demo applications")
+
+
+import auth.cognito_authenticator as cognito
+cognito.do_auth()
+
+if st.session_state["enforce_login"] == 1:
+    if st.session_state["auth_validated"]:
+        cognito.show_button(False)
+    else:
+        cognito.show_button(True)
+        st.write("Please login!")
+        st.stop()
+
+
 
 st.markdown('''
 

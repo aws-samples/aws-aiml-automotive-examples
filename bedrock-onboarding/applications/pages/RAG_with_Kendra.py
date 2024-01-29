@@ -4,11 +4,26 @@ import sys
 import os
 import json
 
+st.set_page_config(page_title="Amazon Bedrock - Conversational chatbot with Kendra", page_icon=":robot:", layout="wide")
+st.header("Amazon Bedrock - Conversational chatbot with Kendra")
+
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
 
 from helpers import *
 from kendra_helper import *
+import auth.cognito_authenticator as cognito
+cognito.do_auth()
+
+if st.session_state["enforce_login"] == 1:
+    if st.session_state["auth_validated"]:
+        cognito.show_button(False)
+    else:
+        cognito.show_button(True)
+        st.write("Please login!")
+        st.stop()
+
+
 RAG_ARCHITECTURE = "images/rag-architecture-kendra.png"
 MAX_HISTORY_LENGTH = 5
 
@@ -139,8 +154,6 @@ else: # If the user ID is not yet stored in the session state, generate a random
     user_id = str(uuid.uuid4())
     st.session_state['user_id'] = user_id
 
-st.set_page_config(page_title="Amazon Bedrock - Conversational chatbot with Kendra", page_icon=":robot:", layout="wide")
-st.header("Amazon Bedrock - Conversational chatbot with Kendra")
 
 st.markdown('''
 This application demonstrates Retrieval Augmented Generation (RAG) architecture. RAG can be used to retrieve data from outside a foundation model and augment your prompts by adding the relevant retrieved data in context. 

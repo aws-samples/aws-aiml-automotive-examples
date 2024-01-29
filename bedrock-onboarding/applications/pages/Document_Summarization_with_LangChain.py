@@ -5,8 +5,24 @@ import uuid
 import sys
 import os
 
+st.set_page_config(page_title="Amazon Bedrock Document Summary with LangChain", page_icon=":robot:", layout="wide")
+st.header("Amazon Bedrock Demo- Document Summary with Langchain")
+
+
 sys.path.append(os.path.join(os.path.dirname(__file__), 'utils'))
+
 from helpers import *
+import auth.cognito_authenticator as cognito
+cognito.do_auth()
+
+if st.session_state["enforce_login"] == 1:
+    if st.session_state["auth_validated"]:
+        cognito.show_button(False)
+    else:
+        cognito.show_button(True)
+        st.write("Please login!")
+        st.stop()
+
 
 MAX_FILES = 1
 
@@ -79,8 +95,6 @@ def handle_input(split_docs):
         output_container.markdown(result)
         
 
-st.set_page_config(page_title="Amazon Bedrock Document Summary with LangChain", page_icon=":robot:", layout="wide")
-st.header("Amazon Bedrock Demo- Document Summary with Langchain")
 
 st.markdown('''
 This application demonstrates generating document summary using Langchain. This application uses Map-Reduce as the chain type to generate summary. This involves splitting the document into smaller batches and running summary for each of the batch(map task) and Reducing the results from the individual summaries.

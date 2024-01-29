@@ -15,3 +15,5 @@ dependencies:
     - pypdf
     - transformers
     - anthropic
+    - python-dotenv
+    - langchain-community

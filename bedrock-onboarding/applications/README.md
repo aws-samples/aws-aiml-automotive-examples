@@ -32,9 +32,11 @@ Before you proceed further, ensure following steps are carried out:
 * Enable model access: The account does not have access to models by default. Admin users with IAM access permissions can add access to specific models using the model access page. After the admin adds access to models, those models are available for all users of the account. You will be able to see a message "Access Granted" under Model access page.
 * Setup IAM policies to get access to Amazon Bedrock service. You can refer to Bedrock User Guide for a list of actions. To run this applications, add permissions to access Amazon Bedrock, S3 and Amazon Kendra services to the IAM role that is used to run the application.
 
+## Authentication Setup with Cognito
+You can optionally turn on a setting to require authentication for the application. It can authenticate against a Cognito Userpool. This application requires AppIntegration settings with Cognito user pool and you can configure to create AppIntegration and get the client secret ID. If you don't have a Cognito user pool you can create manually or using the given CloudFormation template. Follow instructions in [Cognito setup](CognitoSetup.md) to complete the setup. 
+
 <br>
 You can run the streamlit application either from locally or from SageMaker Studio
-
 
 # A) Instructions to run locally
 Follow the below instructions to run the application locally. 
