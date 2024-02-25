@@ -181,7 +181,7 @@ llm_info= get_llm_info(llm_providers,selected_provider)
 write_top_bar(llm_info)
 
 st.markdown('---')
-pdf_files = st.file_uploader(f"Select file(s): Max {MAX_FILES} files can be uploaded",type='pdf', accept_multiple_files=True)
+pdf_files = st.file_uploader(f"Select file(s): Max {MAX_FILES} files can be uploaded",type=['pdf'], accept_multiple_files=True)
 
 if not pdf_files:
     st.info("Please upload PDF documents to continue.")

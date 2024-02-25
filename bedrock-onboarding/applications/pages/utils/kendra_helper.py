@@ -45,7 +45,11 @@ def kendra_query(client,query,top_k,index_id,filter_key=None,filter_value=None):
                 }
               }
     
-    response = client.query(IndexId=index_id, QueryText=query.strip(),AttributeFilter=af)
+    if len(af) == 0:
+        response = client.query(IndexId=index_id, QueryText=query.strip())
+    else:
+        response = client.query(IndexId=index_id, QueryText=query.strip(),AttributeFilter=af)
+        
     if len(response["ResultItems"]) > top_k:
         r_count = top_k
     else:

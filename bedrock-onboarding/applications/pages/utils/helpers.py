@@ -7,6 +7,7 @@ import tempfile as tmp
 import re
 
 from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders.csv_loader import CSVLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
@@ -16,11 +17,10 @@ from langchain.chains.summarize import load_summarize_chain
 
 import model_bedrock as bedrock
 import bedrock_helper as bh
+from dotenv import load_dotenv, dotenv_values
+load_dotenv()
 
-with open('config/settings.json') as sf:
-    settings = json.load(sf)
-    region = settings["region"]
-
+region = os.getenv("REGION","")
 def get_region():
     return region
 
@@ -59,6 +59,27 @@ def _split_docs(pdf_files,chunk_size=750, chunk_overlap=150):
     
     return split_docs
 
+@st.cache_resource(ttl="1h")
+def _split_csv_docs(csv_files):
+    docs = []
+    tmpdir = tmp.TemporaryDirectory()
+    for csv_file in csv_files:
+        tmpfile = os.path.join(tmpdir.name, csv_file.name)
+        with open(tmpfile, "wb") as f:
+            f.write(csv_file.getvalue())
+
+        csv_loader = CSVLoader(
+            file_path=tmpfile,
+            csv_args={
+                "delimiter": ",",
+                "quotechar": '"'
+            },
+        )
+        data = csv_loader.load()
+        docs.extend(csv_loader.load())
+    return docs
+
+
 def pdf_to_docs(pdf_files,chunk_size=750, chunk_overlap=150):
     split_docs = _split_docs(pdf_files,chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     return split_docs
@@ -68,9 +89,19 @@ def pdf_to_text(pdf_files):
     cleaned_text = [d.page_content for d in split_docs]
     return cleaned_text
 
+def csv_to_text(csv_files):
+    split_docs = _split_csv_docs(csv_files)
+    cleaned_text = [d.page_content for d in split_docs]
+    return cleaned_text
+
+
+
 @st.cache_resource
-def pdf_to_retriever(pdf_files):
-    split_docs = _split_docs(pdf_files)
+def pdf_to_retriever(uploaded_files):
+    pdf_files = [f for f in uploaded_files if f.type=='application/pdf']
+    split_docs = []
+    if pdf_files:
+        split_docs.extend(_split_docs(pdf_files))
     return build_retriever(region,split_docs)
    
 def init_model_param_values(llm_providers):
@@ -121,7 +152,7 @@ def build_chain(retriever,llm,prompt_template):
 
 
 def run_chain(chain, prompt: str, history=[]):
-    result =  chain({"query": prompt, "chat_history": history})
+    result =  chain.invoke({"query": prompt, "chat_history": history})
     references = []
     for d in result['source_documents']:
         page = ''

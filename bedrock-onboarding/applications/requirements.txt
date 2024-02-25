@@ -1,0 +1,11 @@
+numpy
+streamlit
+requests
+boto3
+langchain
+faiss-cpu
+pypdf
+transformers
+anthropic
+python-dotenv
+langchain-community

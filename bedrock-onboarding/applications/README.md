@@ -6,7 +6,7 @@ You can find a more in-depth introduction to Streamlit from [Get started](https:
 
 <img src="images/chat-with-doc.gif" alt="Streamlit application" style="width: 750px;"/>
 
-This repo provides following applications
+This repo provides following application functions
 
 #### 1. Chat with a document: 
 This application demonstrates how to build conversational systems with an LLM. You can select one or more PDF documents and the contents from the documents will be "stuffed" into the prompt. Text is extracted from the uploaded documents and cleaned-up. You can select what pages need to be added to the prompt. LLM gets this information as a context and you can query with your supplied context. 
@@ -14,14 +14,53 @@ This application demonstrates how to build conversational systems with an LLM. Y
 #### 2. Conversational Chatbot with RAG: 
 This application demonstrates Retrieval Augmented Generation (RAG) architecture. RAG can be used to retrieve data from outside a foundation model and augment your prompts by adding the relevant retrieved data in context. 
 
-#### 3. Document Analysis: 
+#### 3. Data Analysis with LLM:
+This application demonstrates how to build an business data analytics applicaiton with LLM. You can analyze your business data with ease using our intelligent application. Simply upload your CSV files containing order data, inventory information, sales figures, or any other business metrics. The contents from the csv documents will be "stuffed" into the prompt. Text is extracted from the uploaded documents and cleaned-up. LLMs process your data from context and enable natural language conversations about your business performance.  
+
+Ask questions about sales trends, inventory levels, customer behavior, and more to gain data-driven insights. The conversational interface allows you to have a dynamic dialogue to investigate issues, identify opportunities, and guide strategic decisions. No complex setup or long training times - just upload and analyze through intuitive questioning.
+
+#### 4. Document Analysis: 
 This application demonstrates document analysis tasks. You can select one or more documents to perform the analysis. You can use this for multiple purposes such as generating a quick summary of the or automatically generating question and answers. You can customize the prompts. This application uses Map-Reduce approach for the document analysis. This involves splitting the document into smaller batches and running the analysis task for each of the batch and collating the results from the individual groups.  
 
-#### 4. Document summarization with Langchain: 
+#### 5. Document summarization with Langchain: 
 This application demonstrates generating document summary using Langchain. This application uses Map-Reduce as the chain type to generate summary. This involves splitting the document into smaller batches and running summary for each of the batch(map task) and Reducing the results from the individual summaries.
 
-#### 5. RAG with Kendra: 
+#### 6. RAG with Kendra: 
 This application demonstrates Retrieval Augmented Generation (RAG) architecture. RAG can be used to retrieve data from outside a foundation model and augment your prompts by adding the relevant retrieved data in context. This external data used to augment prompts can come from multiple data sources, such as a document repositories, databases, or APIs. Typically documents are conveted and the application queries the data to perform relevancy search. In this case, Kendra is used as a knowledge store for the user queries. RAG model sources relevant data from the knowledge library. The original user prompt is then appended with relevant context from similar documents within the knowledge library. This augmented prompt is then sent to the foundation model. You can use Kendra to ingest the documents asynchronously. Expand Solution architecture below to learn more.
+
+## Solution architecture
+The solution architecture is based on a [pattern](https://arxiv.org/pdf/2005.11401.pdf) called Retrieval Augmented Generation (RAG) architecture. It helps to improve efficacy of large language model (LLM) based applications by using relevant enterprise domain data to synthesize a response to user queries.
+
+<img src="images/rag-architecture-kendra.png" alt="Solution architecture" style="width: 750px;"/>
+
+There are two parts to the solution architecture
+
+1. Data ingestion pipeline (offline) - This ingests the domain specific documents to a Amazon Kendra index. This is done asynchronously. 
+2. Runtime execution / (Online)- This handles the user queries and performs orchestration by integrating with different services.  
+
+Following are the key services and components of this architecture.
+
+### Key services/components
+
+* Amazon Bedrock - a fully managed service that offers a choice of high-performing foundation models (FMs). It is serverless and users can invoke its functions via APIs to call Large Language Models (LLMs).
+* Amazon Kendra - an intelligent enterprise search service, provides rich functions to perform traditional search and semantic search. It provides connectors to integrate with wide range of upstream data sources.  It is serverless and users can search the index via APIs. It supports variety of document types including .xls., doc., and .pdf
+* Amazon Simple Storage Service (S3) - unstructured object storage. It provides secure, durable and scalable solution. It is serverless and documents can be uploaded through the console, API or through command line interface (CLI). Amazon Kendra can be configured to synchronize with Kendra. 
+* Amazon Cognito - an identity platform for web and mobile apps. It’s a user directory, an authentication server, and an authorization service for OAuth 2.0 access tokens and AWS credentials. Application is configured with Cognito user pool for authentication. 
+* Streamlit app- Front end web UI development framework written in Python.
+* Amazon SageMaker Studio - Fully managed development environment for data scientists and ML engineers to run Jupyter notebooks.
+* LangChain - Python based orchestration framework that helps users to develop LLM based applications. It provides support for interaction with knowledge stores like Kendra and LLMs hosted on Bedrock.
+* Hosting - Application can be optionally hosted on ECS Fargate cluster. This is done by containerizing the application and docker image is stored in a ECR repository. The Streamlit application is hosted on ECS behind an Application Load Balancer. 
+* Supporting services - Additional services - IAM to manage roles, and resource based permissions, CloudFormation to create resources as code, Amazon CloudWatch Metrics and Logs for observability and logging, Amazon EventBridge for event driven executions. 
+
+### Process flow
+
+Retrieval Augmented Generation (RAG) architecture
+
+* User accesses a web app URL served by Streamlit based application to type their question.
+* Application searches for matching document excerpts pertaining to user question. This is searched via Kendra API and it returns top matching results.
+* Prompt (Input to LLM) is constructed using a template with search results, user question, and past interactions by the user. This is sent as an input for the LLM (Bedrock). This process is managed by LangChain library.
+* LLM hosted by Amazon Bedrock service is invoked with the prompt via API and it generates a response.
+* Response from LLM  is served to the user by the web app.
 
 ## Service access checklist
 Before you proceed further, ensure following steps are carried out: 
@@ -62,7 +101,7 @@ http://localhost:&lt;Port&gt;/
 
 
 # B) Instructions to run on SageMaker Studio
-Setup Streamlit environemnt. Below assumes you have extracted code to /home/sagemaker-user/bedrock_onboarding directory
+Setup Streamlit environment. Below assumes you have extracted code to /home/sagemaker-user/bedrock_onboarding directory
 
 ```bash
 cd /home/sagemaker-user/bedrock_onboarding/applications
@@ -87,6 +126,12 @@ For SageMaker Studio:
 
 https://&lt;SpaceID&gt;.studio.&lt;StudioRegion&gt;.sagemaker.aws/jupyterlab/default/proxy/&lt;Port&gt;/
 
+
+# Deploy application to ECS
+You can optionally deploy the Streamlit application to Amazon ECS service. Follow instructions in [Deploy to ECS](Deploy_to_ECS.md) to complete the setup. 
+
+# Sample documents
+To run the use cases, you can find sample documents in this repository. To get more details refer to this [document](sample_docs/README.md).
 
 # Stop & Clean-up
 To stop the application, go to terminal and kill the application Ctrl +C
